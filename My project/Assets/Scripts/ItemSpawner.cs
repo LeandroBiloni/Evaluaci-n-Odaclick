@@ -1,20 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ItemSpawner : MonoBehaviour
 {
     public static ItemSpawner Instance;
-    [SerializeField] private List<Item> _items = new List<Item>();
     [SerializeField] private Transform _spawnContainer;
-    [SerializeField] private float _timeToSpawn;
 
     private float _timeSinceLastSpawn;
     
     [SerializeField] private bool _spawnOnlyCoins;
 
     private int _spawnedCoinsCounter;
-    
+
+    private RouletteWheel _roulette;
+
+    private Dictionary<Item, int> _itemChances = new Dictionary<Item, int>();
     private void Awake()
     {
         if (Instance != null)
@@ -22,45 +25,64 @@ public class ItemSpawner : MonoBehaviour
         else Instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            SpawnItem();
+        _roulette = new RouletteWheel();
     }
-
-    private void SpawnItem()
+    
+    public void SpawnItem()
     {
         Item item = null;
-        if (_spawnOnlyCoins)
-        {
-            if (_spawnedCoinsCounter > 0)
-            {
-                _spawnedCoinsCounter--;
 
-                if (_spawnedCoinsCounter <= 0)
-                {
-                    _spawnOnlyCoins = false;
-                }
-                foreach (var i in _items)
-                {
-                    if (i.GetItemName() != "Coin") continue;
+        var minItem = GameManager.Instance.GetSelectedDifficulty().minObjectsToSpawn;
+        var maxItem = GameManager.Instance.GetSelectedDifficulty().maxObjectsToSpawn;
+        
+        //Determines how many items will spawn.
+        var itemsQuantity = Random.Range(minItem, maxItem + 1);
+
+        for (int i = 0; i < itemsQuantity; i++)
+        {
             
-                    item = i;
-                    break;
+            //If target was clicked, only coins will spawn.
+            if (_spawnOnlyCoins)
+            {
+                if (_spawnedCoinsCounter > 0)
+                {
+                    _spawnedCoinsCounter--;
+
+                    if (_spawnedCoinsCounter <= 0)
+                    {
+                        _spawnOnlyCoins = false;
+                    }
+                    foreach (var pair in _itemChances)
+                    {
+                        if (pair.Key.GetItemName() != "Coin") continue;
+            
+                        item = pair.Key;
+                        break;
+                    }
                 }
             }
-        }
-        else
-        {
-            var random = Random.Range(0, _items.Count);
-            item = _items[random];
-        }
+            else
+            {
+                if (_roulette == null)
+                {
+                    _roulette = new RouletteWheel();
+                }
+                
+                //Determines which item will spawn.
+                item = _roulette.Calculate(_itemChances);
+            }
         
-        if (item)
-            Spawn(item);
+            if (item)
+                Spawn(item); 
+        }
     }
 
+    /// <summary>
+    /// Spawns an item at a random screen position.
+    /// </summary>
+    /// <param name="item">The item to spawn.</param>
     private void Spawn(Item item)
     {
         var i = Instantiate(item, _spawnContainer);
@@ -71,9 +93,18 @@ public class ItemSpawner : MonoBehaviour
         i.transform.localPosition = randomPos;
     }
 
+    /// <summary>
+    /// Forces the spawn of coins for the next items.
+    /// </summary>
+    /// <param name="amount">The amount of coins that will spawn.</param>
     public void ForceCoinSpawn(int amount)
     {
         _spawnOnlyCoins = true;
         _spawnedCoinsCounter = amount;
+    }
+
+    public void AddSpawnChances(Item item, int weight)
+    {
+        _itemChances.Add(item, weight);
     }
 }

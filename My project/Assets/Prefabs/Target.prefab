@@ -112,5 +112,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemName: Target
   _points: 0
-  _aliveTimer: 1000
+  _pointsToReduceOnDestroy: 10
+  _aliveTimer: 5
   _bonusCoins: 5

@@ -10,8 +10,9 @@ public class Item : MonoBehaviour
 {
     [SerializeField] private string _itemName;
     
-    [SerializeField] 
-    protected int _points;
+    [SerializeField] protected int _points;
+
+    [SerializeField] protected int _pointsToReduceOnDestroy;
 
     [SerializeField] private float _aliveTimer;
     
@@ -25,7 +26,6 @@ public class Item : MonoBehaviour
 
     private void OnMouseOver()
     {
-        Debug.Log("mouse over " + _itemName);
         if (Input.GetMouseButtonDown(0))
         {
             OnClick();
@@ -35,7 +35,7 @@ public class Item : MonoBehaviour
     IEnumerator TimeOut()
     {
         yield return new WaitForSeconds(_aliveTimer);
-        GameManager.Instance.UpdatePoints(-1);
+        GameManager.Instance.UpdatePoints(-_pointsToReduceOnDestroy);
         Destroy(gameObject);
     }
 

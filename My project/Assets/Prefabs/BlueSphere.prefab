@@ -93,7 +93,7 @@ MeshCollider:
   m_GameObject: {fileID: 7334722812014430260}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -112,4 +112,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemName: BlueSphere
   _points: 2
-  _aliveTimer: 1000
+  _pointsToReduceOnDestroy: 1
+  _aliveTimer: 5

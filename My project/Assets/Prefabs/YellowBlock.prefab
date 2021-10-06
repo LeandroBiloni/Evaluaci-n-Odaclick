@@ -111,4 +111,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemName: YellowBlock
   _points: 1
-  _aliveTimer: 1000
+  _pointsToReduceOnDestroy: 1
+  _aliveTimer: 5

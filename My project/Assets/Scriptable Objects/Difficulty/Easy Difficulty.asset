@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68e9bf928e124f542a61c03de923a2ce, type: 3}
+  m_Name: Easy Difficulty
+  m_EditorClassIdentifier: 
+  itemList:
+  - {fileID: 11400000, guid: 32691f50f90630d45af7b7a619e3377d, type: 2}
+  - {fileID: 11400000, guid: b8c8341a757d190498122194295f4773, type: 2}
+  - {fileID: 11400000, guid: 635af7cbcab86d547a44aed7c029e109, type: 2}
+  - {fileID: 11400000, guid: f159aec09df15674b8ab4554df114313, type: 2}
+  - {fileID: 11400000, guid: 26326d1e27ba68e4784dc92dc2f80e2c, type: 2}
+  - {fileID: 11400000, guid: c4b47805276888e42949cfc92cee2703, type: 2}
+  minSpawnTime: 2
+  maxSpawnTime: 4
+  minObjectsToSpawn: 1
+  maxObjectsToSpawn: 3

@@ -112,4 +112,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemName: RedCrate
   _points: -5
-  _aliveTimer: 1000
+  _pointsToReduceOnDestroy: 1
+  _aliveTimer: 5
