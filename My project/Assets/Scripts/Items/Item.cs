@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class Item : MonoBehaviour
 {
+    [SerializeField] private string _itemName;
+    
     [SerializeField] 
     protected int _points;
 
@@ -18,15 +20,34 @@ public class Item : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(this, _aliveTimer);
+        StartCoroutine(TimeOut());
     }
 
     private void OnMouseOver()
     {
+        Debug.Log("mouse over " + _itemName);
         if (Input.GetMouseButtonDown(0))
         {
-            GameManager.Instance.UpdatePoints(_points);
-            Destroy(gameObject);
+            OnClick();
         }
+    }
+
+    IEnumerator TimeOut()
+    {
+        yield return new WaitForSeconds(_aliveTimer);
+        GameManager.Instance.UpdatePoints(-1);
+        Destroy(gameObject);
+    }
+
+    protected virtual void OnClick()
+    {
+        GameManager.Instance.UpdatePoints(_points);
+        StopCoroutine(TimeOut());
+        Destroy(gameObject);
+    }
+
+    public string GetItemName()
+    {
+        return _itemName;
     }
 }
