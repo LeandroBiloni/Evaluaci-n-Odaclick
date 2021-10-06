@@ -11,7 +11,7 @@ public class Shield : Item
     protected override void OnClick()
     {
         _hits--;
-
+        PlaySound();
         if (_hits <= 0)
         {
             base.OnClick();

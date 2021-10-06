@@ -39,8 +39,6 @@ public class DifficultySelector : MonoBehaviour
                 _difficulty = Difficulty.Hard;
                 break;
         }
-        
-        SceneController.Instance.LoadGame();
     }
 
     public Difficulty GetSelectedDifficulty()

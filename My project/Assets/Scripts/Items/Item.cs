@@ -15,7 +15,8 @@ public class Item : MonoBehaviour
     [SerializeField] protected int _pointsToReduceOnDestroy;
 
     [SerializeField] private float _aliveTimer;
-    
+
+    [SerializeField] private AudioClip _clip;
     
     private float _myTime;
     // Start is called before the first frame update
@@ -43,11 +44,20 @@ public class Item : MonoBehaviour
     {
         GameManager.Instance.UpdatePoints(_points);
         StopCoroutine(TimeOut());
+
+        PlaySound();
+        
         Destroy(gameObject);
     }
 
     public string GetItemName()
     {
         return _itemName;
+    }
+
+    protected void PlaySound()
+    {
+        if (_clip != null)
+            AudioPlayer.Instance.PlaySound(_clip);
     }
 }

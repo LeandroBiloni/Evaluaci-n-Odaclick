@@ -114,3 +114,4 @@ MonoBehaviour:
   _points: -5
   _pointsToReduceOnDestroy: 1
   _aliveTimer: 5
+  _clip: {fileID: 8300000, guid: 94a29d3c442daf3439b12841657c7178, type: 3}

@@ -13,8 +13,13 @@ MonoBehaviour:
   m_Name: Medium Difficulty
   m_EditorClassIdentifier: 
   itemList:
-  - {fileID: 11400000, guid: 32691f50f90630d45af7b7a619e3377d, type: 2}
-  minSpawnTime: 0
-  maxSpawnTime: 0
-  minObjectsToSpawn: 0
-  maxObjectsToSpawn: 0
+  - {fileID: 11400000, guid: c9fd4c580ef1b2e438eb4d1748d4df1d, type: 2}
+  - {fileID: 11400000, guid: 0daf0b873aef1f343858075389aa5090, type: 2}
+  - {fileID: 11400000, guid: 3e4aedf08667e5741aa0eb1e0cfe2b5a, type: 2}
+  - {fileID: 11400000, guid: b5be499b6fcad0e48ada1e9ad3bd60db, type: 2}
+  - {fileID: 11400000, guid: be54c59a454d6734898f7974a828add5, type: 2}
+  - {fileID: 11400000, guid: a90caac1907402e4788c2ddfc6c9e6db, type: 2}
+  minSpawnTime: 4
+  maxSpawnTime: 5
+  minObjectsToSpawn: 1
+  maxObjectsToSpawn: 4

@@ -31,27 +31,30 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Items/Shield.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../PROYECTO FINAL/Assets/Scripts/Audio/Sound.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MenuController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../PROYECTO FINAL/Assets/Scripts/Editor/Inspector/SOBaseInspector.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/DifficultySelector.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../PROYECTO FINAL/Assets/Scripts/Audio/AudioManager.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/AudioPlayer.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
       <option value="$PROJECT_DIR$/Assets/Scripts/Item.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Items/Target.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Items/Shield.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/RouletteWheel.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Difficulty.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/DifficultySO.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/ItemSO.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Editor/ScriptableInspector.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/ItemSpawner.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Items/Item.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/SceneManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/SceneController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Editor/ScriptableInspector.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/AudioPlayer.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Items/Item.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Items/Shield.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/MenuController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/DifficultySelector.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/SceneController.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1z6KPIDC0dwnn3IIGr4ecXcPQ7D" />
@@ -66,6 +69,14 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+    <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="$USER_HOME$/Desktop/Prueba\My project.exe" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\Leandro\Desktop\Prueba" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
     <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />

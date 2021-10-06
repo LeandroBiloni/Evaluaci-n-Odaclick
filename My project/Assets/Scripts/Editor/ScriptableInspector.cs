@@ -18,8 +18,8 @@ public class ScriptableInspector : Editor
     {
         base.OnInspectorGUI();
 
-        bool save = GUILayout.Button("Save Preset");
-        EditorGUILayout.LabelField("Save preset changes and write them on disk.");
+        bool save = GUILayout.Button("Save");
+        EditorGUILayout.LabelField("Save changes and write them on disk.");
         if (save)
             SavePreset();
     }

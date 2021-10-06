@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: RedCreate Easy
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7514124002567439768, guid: 00eddcc0ec857404c93a594b5d661da5, type: 3}
-  weight: 20
+  weight: 15

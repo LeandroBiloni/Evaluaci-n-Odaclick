@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: BlueSphere Easy
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 162812323572339012, guid: 9e3bbe37b80ced549b19a2667b0a511f, type: 3}
-  weight: 10
+  weight: 25

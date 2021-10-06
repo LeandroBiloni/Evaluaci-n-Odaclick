@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 170b5dc54bd2c1241a78b33375efd4ff, type: 3}
-  m_Name: Target Easy
+  m_Name: Target Medium
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7074300426102532960, guid: 8bee5d9f8b2c9d549a2f03b079ee9e24, type: 3}
-  weight: 15
+  weight: 10

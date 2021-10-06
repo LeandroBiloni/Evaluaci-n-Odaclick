@@ -13,8 +13,13 @@ MonoBehaviour:
   m_Name: Hard Difficulty
   m_EditorClassIdentifier: 
   itemList:
-  - {fileID: 11400000, guid: 32691f50f90630d45af7b7a619e3377d, type: 2}
-  minSpawnTime: 0
-  maxSpawnTime: 0
-  minObjectsToSpawn: 0
-  maxObjectsToSpawn: 0
+  - {fileID: 11400000, guid: 2ba42e4078c42fc41bbdee2c90ea134e, type: 2}
+  - {fileID: 11400000, guid: c35f7fc16f361674dba084d95705e53c, type: 2}
+  - {fileID: 11400000, guid: 3d0588a4f2dcbb64aa71c26fdc5c191c, type: 2}
+  - {fileID: 11400000, guid: 869a9b1d86a73ea4d991a4f3cae93d1b, type: 2}
+  - {fileID: 11400000, guid: 927d75ca8d60ef043a0e1436194d72ff, type: 2}
+  - {fileID: 11400000, guid: f1de3bbe5407c2c4b91d0554e4685a4e, type: 2}
+  minSpawnTime: 3
+  maxSpawnTime: 6
+  minObjectsToSpawn: 1
+  maxObjectsToSpawn: 3
