@@ -1,11 +1,6 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
-using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
@@ -48,7 +43,7 @@ public class GameManager : MonoBehaviour
     {
         UpdateTime();
     }
-
+    
     private void DifficultySettings()
     {
         switch (DifficultySelector.Instance.GetSelectedDifficulty())
@@ -87,8 +82,17 @@ public class GameManager : MonoBehaviour
     public void UpdatePoints(int points)
     {
         _points += points;
-        _pointsText.text = "Points: " + _points;
 
+        float p = _points / (float)_pointsToWin;
+        Debug.Log("p: " + p);
+        if (p < 0)
+            _pointsText.color = Color.red;
+        else if (p < 0.75f)
+            _pointsText.color = Color.white;
+        else _pointsText.color = Color.green;
+        
+        _pointsText.text = "Points: " + _points;
+        
         if (_points >= _pointsToWin)
             SceneController.Instance.LoadWin();
     }
@@ -96,6 +100,10 @@ public class GameManager : MonoBehaviour
     private void UpdateTime()
     {
         _maxTime -= Time.deltaTime;
+        
+        if (_maxTime <= 30)
+            _timeText.color = Color.red;
+        
         _timeText.text = "Time: " + Mathf.FloorToInt(_maxTime);
 
         if (_maxTime <= 0)

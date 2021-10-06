@@ -1,10 +1,6 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
+
 
 public class Item : MonoBehaviour
 {
@@ -33,6 +29,10 @@ public class Item : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Coroutine to destroy item.
+    /// </summary>
+    /// <returns></returns>
     IEnumerator TimeOut()
     {
         yield return new WaitForSeconds(_aliveTimer);
@@ -40,6 +40,7 @@ public class Item : MonoBehaviour
         Destroy(gameObject);
     }
 
+    
     protected virtual void OnClick()
     {
         GameManager.Instance.UpdatePoints(_points);
@@ -54,7 +55,7 @@ public class Item : MonoBehaviour
     {
         return _itemName;
     }
-
+    
     protected void PlaySound()
     {
         if (_clip != null)

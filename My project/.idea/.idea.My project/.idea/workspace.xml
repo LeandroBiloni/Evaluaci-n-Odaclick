@@ -47,14 +47,15 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/ItemSO.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/ItemSpawner.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/SceneManager.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/SceneController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Editor/ScriptableInspector.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/AudioPlayer.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Items/Item.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Items/Shield.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/MenuController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/DifficultySelector.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Items/ItemSpawner.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Items/Item.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1z6KPIDC0dwnn3IIGr4ecXcPQ7D" />

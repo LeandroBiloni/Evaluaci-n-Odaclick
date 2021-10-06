@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -7,11 +5,12 @@ using Random = UnityEngine.Random;
 public class ItemSpawner : MonoBehaviour
 {
     public static ItemSpawner Instance;
-    [SerializeField] private Transform _spawnContainer;
+    
+    private Transform _canvas;
 
     private float _timeSinceLastSpawn;
     
-    [SerializeField] private bool _spawnOnlyCoins;
+    private bool _spawnOnlyCoins;
 
     private int _spawnedCoinsCounter;
 
@@ -23,12 +22,15 @@ public class ItemSpawner : MonoBehaviour
         if (Instance != null)
             Destroy(gameObject);
         else Instance = this;
+        _canvas = FindObjectOfType<Canvas>().transform;
     }
 
     private void Start()
     {
+        
         _roulette = new RouletteWheel();
     }
+    
     
     public void SpawnItem()
     {
@@ -85,11 +87,15 @@ public class ItemSpawner : MonoBehaviour
     /// <param name="item">The item to spawn.</param>
     private void Spawn(Item item)
     {
-        var i = Instantiate(item, _spawnContainer);
+        var i = Instantiate(item, _canvas);
+        
+        //Calculates position to spawn relative to screen resolution
         var res = Screen.currentResolution;
         float xPostiion = Random.Range(-(res.width / 2) + 100, (res.width / 2) - 100);
         float yPostiion = Random.Range(-(res.height / 2) + 100, (res.height / 2) - 100);
+        
         Vector3 randomPos = new Vector3(xPostiion, yPostiion, 0);
+        
         i.transform.localPosition = randomPos;
     }
 
@@ -103,6 +109,11 @@ public class ItemSpawner : MonoBehaviour
         _spawnedCoinsCounter = amount;
     }
 
+    /// <summary>
+    /// Sets item spawn chances to ItemSpawner.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="weight">Higher weight in relation to other items gives more chance to spawn the item.</param>
     public void AddSpawnChances(Item item, int weight)
     {
         _itemChances.Add(item, weight);
