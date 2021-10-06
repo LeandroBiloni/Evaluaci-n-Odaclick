@@ -34,8 +34,8 @@ public class ItemSpawner : MonoBehaviour
     {
         Item item = null;
 
-        var minItem = GameManager.Instance.GetSelectedDifficulty().minObjectsToSpawn;
-        var maxItem = GameManager.Instance.GetSelectedDifficulty().maxObjectsToSpawn;
+        var minItem = GameManager.Instance.GetSelectedDifficultyData().minObjectsToSpawn;
+        var maxItem = GameManager.Instance.GetSelectedDifficultyData().maxObjectsToSpawn;
         
         //Determines how many items will spawn.
         var itemsQuantity = Random.Range(minItem, maxItem + 1);

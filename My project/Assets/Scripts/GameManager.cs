@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
@@ -16,11 +17,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _pointsToWin;
     private int _points;
     
-    [SerializeField] private DifficultySO _easyDifficultySo;
-    [SerializeField] private DifficultySO _mediumDifficultySo;
-    [SerializeField] private DifficultySO _hardDifficultySo;
+    [SerializeField] private DifficultySO _easyDifficultyData;
+    [SerializeField] private DifficultySO _mediumDifficultyData;
+    [SerializeField] private DifficultySO _hardDifficultyData;
 
-    private DifficultySO _selectedDifficulty;
+    private DifficultySO _selectedDifficultyData;
     private void Awake()
     {
         if (Instance != null)
@@ -50,22 +51,22 @@ public class GameManager : MonoBehaviour
 
     private void DifficultySettings()
     {
-        switch (DifficultySelector.Instance.difficulty)
+        switch (DifficultySelector.Instance.GetSelectedDifficulty())
         {
             case DifficultySelector.Difficulty.Easy:
-                _selectedDifficulty = _easyDifficultySo;
+                _selectedDifficultyData = _easyDifficultyData;
                 break;
             case DifficultySelector.Difficulty.Medium:
-                _selectedDifficulty = _mediumDifficultySo;
+                _selectedDifficultyData = _mediumDifficultyData;
                 break;
             case DifficultySelector.Difficulty.Hard:
-                _selectedDifficulty = _hardDifficultySo;
+                _selectedDifficultyData = _hardDifficultyData;
                 break;
         }
 
-        if (_selectedDifficulty != null)
+        if (_selectedDifficultyData != null)
         {
-            foreach (var item in _selectedDifficulty.itemList)
+            foreach (var item in _selectedDifficultyData.itemList)
             {
                 ItemSpawner.Instance.AddSpawnChances(item.itemPrefab, item.weight);
             }
@@ -74,7 +75,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator SpawnTimer()
     {
-        var time = Random.Range(_selectedDifficulty.minSpawnTime, _selectedDifficulty.maxSpawnTime);
+        var time = Random.Range(_selectedDifficultyData.minSpawnTime, _selectedDifficultyData.maxSpawnTime);
 
         yield return new WaitForSeconds(time);
         
@@ -87,22 +88,22 @@ public class GameManager : MonoBehaviour
     {
         _points += points;
         _pointsText.text = "Points: " + _points;
-        
+
         if (_points >= _pointsToWin)
-            Debug.Log("win");
+            SceneController.Instance.LoadWin();
     }
 
     private void UpdateTime()
     {
         _maxTime -= Time.deltaTime;
         _timeText.text = "Time: " + Mathf.FloorToInt(_maxTime);
-        
+
         if (_maxTime <= 0)
-            Debug.Log("lose");
+            SceneController.Instance.LoadLose();
     }
 
-    public DifficultySO GetSelectedDifficulty()
+    public DifficultySO GetSelectedDifficultyData()
     {
-        return _selectedDifficulty;
+        return _selectedDifficultyData;
     }
 }

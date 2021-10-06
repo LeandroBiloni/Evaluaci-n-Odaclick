@@ -14,7 +14,7 @@ public class DifficultySelector : MonoBehaviour
     
     public static DifficultySelector Instance;
 
-    public Difficulty difficulty;
+    private Difficulty _difficulty;
 
     private void Awake()
     {
@@ -23,5 +23,28 @@ public class DifficultySelector : MonoBehaviour
         else Instance = this;
         
         DontDestroyOnLoad(gameObject);
+    }
+
+    public void SetDifficulty(string difficulty)
+    {
+        switch (difficulty)
+        {
+            case "Easy":
+                _difficulty = Difficulty.Easy;
+                break;
+            case "Medium":
+                _difficulty = Difficulty.Medium;
+                break;
+            case "Hard":
+                _difficulty = Difficulty.Hard;
+                break;
+        }
+        
+        SceneController.Instance.LoadGame();
+    }
+
+    public Difficulty GetSelectedDifficulty()
+    {
+        return _difficulty;
     }
 }
