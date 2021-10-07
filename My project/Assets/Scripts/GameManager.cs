@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float _maxTime;
     [SerializeField] private TextMeshProUGUI _timeText;
     [SerializeField] private TextMeshProUGUI _pointsText;
+    [SerializeField] private Image _pointsProgressBar;
     [SerializeField] private int _pointsToWin;
     private int _points;
     
@@ -27,6 +29,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _pointsProgressBar.fillAmount = 0;
         _timeText.text = "Time: " + _maxTime;
         _pointsText.text = "Points: 0";
         _points = 0;
@@ -92,6 +95,8 @@ public class GameManager : MonoBehaviour
         else _pointsText.color = Color.green;
         
         _pointsText.text = "Points: " + _points;
+        
+        _pointsProgressBar.fillAmount = p;
         
         if (_points >= _pointsToWin)
             SceneController.Instance.LoadWin();

@@ -92,7 +92,7 @@ public class ItemSpawner : MonoBehaviour
         //Calculates position to spawn relative to screen resolution
         var res = Screen.currentResolution;
         float xPostiion = Random.Range(-(res.width / 2) + 100, (res.width / 2) - 100);
-        float yPostiion = Random.Range(-(res.height / 2) + 100, (res.height / 2) - 100);
+        float yPostiion = Random.Range(-(res.height / 2) + 100, (res.height / 2) - 200);
         
         Vector3 randomPos = new Vector3(xPostiion, yPostiion, 0);
         
