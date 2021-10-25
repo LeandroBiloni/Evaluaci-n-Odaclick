@@ -13,4 +13,11 @@ MonoBehaviour:
   m_Name: Target Easy
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 7074300426102532960, guid: 8bee5d9f8b2c9d549a2f03b079ee9e24, type: 3}
+  itemName: Target
+  points: 0
+  pointsToReduceOnDestroy: 1
+  aliveTime: 5
+  soundEffect: {fileID: 8300000, guid: b8ce6998b016e94478e1485e7ffd9ec0, type: 3}
+  hits: 0
+  bonusCoins: 5
   weight: 15

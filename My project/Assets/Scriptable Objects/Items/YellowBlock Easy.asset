@@ -13,4 +13,11 @@ MonoBehaviour:
   m_Name: YellowBlock Easy
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 1930906559237391655, guid: f4435d3df7e8df646b91d23bccd51993, type: 3}
+  itemName: Yellow Block
+  points: 1
+  pointsToReduceOnDestroy: 1
+  aliveTime: 5
+  soundEffect: {fileID: 8300000, guid: f269dee52d5bb0d4691a25f749f37356, type: 3}
+  hits: 0
+  bonusCoins: 0
   weight: 50

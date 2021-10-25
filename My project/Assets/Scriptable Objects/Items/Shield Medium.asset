@@ -13,4 +13,11 @@ MonoBehaviour:
   m_Name: Shield Medium
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 8151383374593203064, guid: 813f96ab4884dbb428f1951da29a623c, type: 3}
+  itemName: Shield
+  points: 10
+  pointsToReduceOnDestroy: 5
+  aliveTime: 5
+  soundEffect: {fileID: 8300000, guid: e19c3f2448ffbee4791ce60e5841251d, type: 3}
+  hits: 5
+  bonusCoins: 0
   weight: 15

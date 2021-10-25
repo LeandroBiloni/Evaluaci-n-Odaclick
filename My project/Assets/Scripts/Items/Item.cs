@@ -1,26 +1,28 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
 public class Item : MonoBehaviour
 {
-    [SerializeField] private string _itemName;
+    private string _itemName;
     
-    [SerializeField] protected int _points;
+    protected int _points;
 
-    [SerializeField] protected int _pointsToReduceOnDestroy;
+    protected int _pointsToReduceOnDestroy;
 
-    [SerializeField] private float _aliveTimer;
+    private float _aliveTime;
 
-    [SerializeField] private AudioClip _clip;
+    private AudioClip _soundEffect;
     
     private float _myTime;
-    // Start is called before the first frame update
-    void Start()
-    {
-        StartCoroutine(TimeOut());
-    }
 
+    public delegate void ClickAction(int value);
+
+    public delegate void DeathAction(int value);
+    public event ClickAction OnClickEvent;
+
+    public event DeathAction OnDeathEvent;
     private void OnMouseOver()
     {
         if (Input.GetMouseButtonDown(0))
@@ -35,15 +37,16 @@ public class Item : MonoBehaviour
     /// <returns></returns>
     IEnumerator TimeOut()
     {
-        yield return new WaitForSeconds(_aliveTimer);
-        GameManager.Instance.UpdatePoints(-_pointsToReduceOnDestroy);
+        yield return new WaitForSeconds(_aliveTime);
+
+        OnDeathEvent?.Invoke(-_pointsToReduceOnDestroy);
         Destroy(gameObject);
     }
 
     
     protected virtual void OnClick()
     {
-        GameManager.Instance.UpdatePoints(_points);
+        OnClickEvent?.Invoke(_points);
         StopCoroutine(TimeOut());
 
         PlaySound();
@@ -51,14 +54,23 @@ public class Item : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public string GetItemName()
-    {
-        return _itemName;
-    }
-    
     protected void PlaySound()
     {
-        if (_clip != null)
-            AudioPlayer.Instance.PlaySound(_clip);
+        if (_soundEffect != null)
+            AudioPlayer.Instance.PlaySound(_soundEffect);
+    }
+
+    /// <summary>
+    /// Sets the item data and starts destroy timer.
+    /// </summary>
+    /// <param name="data"></param>
+    public virtual void SetItem(ItemSO data)
+    {
+        _itemName = data.itemName;
+        _points = data.points;
+        _pointsToReduceOnDestroy = data.pointsToReduceOnDestroy;
+        _aliveTime = data.aliveTime;
+        _soundEffect = data.soundEffect;
+        StartCoroutine(TimeOut());
     }
 }

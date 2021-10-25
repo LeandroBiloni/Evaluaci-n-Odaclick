@@ -8,17 +8,17 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     [SerializeField] private float _maxTime;
-    [SerializeField] private TextMeshProUGUI _timeText;
-    [SerializeField] private TextMeshProUGUI _pointsText;
-    [SerializeField] private Image _pointsProgressBar;
     [SerializeField] private int _pointsToWin;
     private int _points;
-    
-    [SerializeField] private DifficultySO _easyDifficultyData;
-    [SerializeField] private DifficultySO _mediumDifficultyData;
-    [SerializeField] private DifficultySO _hardDifficultyData;
 
-    private DifficultySO _selectedDifficultyData;
+    [SerializeField] private DifficultySO _selectedDifficultyData;
+
+    public delegate void TimeUpdate(float value);
+    public event TimeUpdate OnTimeUpdateEvent;
+
+    public delegate void PointsUpdate(int currentPoints, int maxPoints);
+
+    public event PointsUpdate OnPointsUpdateEvent;
     private void Awake()
     {
         if (Instance != null)
@@ -29,9 +29,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _pointsProgressBar.fillAmount = 0;
-        _timeText.text = "Time: " + _maxTime;
-        _pointsText.text = "Points: 0";
         _points = 0;
 
         DifficultySettings();
@@ -49,24 +46,13 @@ public class GameManager : MonoBehaviour
     
     private void DifficultySettings()
     {
-        switch (DifficultySelector.Instance.GetSelectedDifficulty())
-        {
-            case DifficultySelector.Difficulty.Easy:
-                _selectedDifficultyData = _easyDifficultyData;
-                break;
-            case DifficultySelector.Difficulty.Medium:
-                _selectedDifficultyData = _mediumDifficultyData;
-                break;
-            case DifficultySelector.Difficulty.Hard:
-                _selectedDifficultyData = _hardDifficultyData;
-                break;
-        }
-
+        _selectedDifficultyData = DifficultySelector.Instance.GetSelectedDifficulty();
+        
         if (_selectedDifficultyData != null)
         {
-            foreach (var item in _selectedDifficultyData.itemList)
+            foreach (var itemData in _selectedDifficultyData.itemList)
             {
-                ItemSpawner.Instance.AddSpawnChances(item.itemPrefab, item.weight);
+                ItemSpawner.Instance.AddSpawnChances(itemData, itemData.weight);
             }
         }
     }
@@ -85,18 +71,8 @@ public class GameManager : MonoBehaviour
     public void UpdatePoints(int points)
     {
         _points += points;
-
-        float p = _points / (float)_pointsToWin;
-        Debug.Log("p: " + p);
-        if (p < 0)
-            _pointsText.color = Color.red;
-        else if (p < 0.75f)
-            _pointsText.color = Color.white;
-        else _pointsText.color = Color.green;
         
-        _pointsText.text = "Points: " + _points;
-        
-        _pointsProgressBar.fillAmount = p;
+        OnPointsUpdateEvent?.Invoke(_points, _pointsToWin);
         
         if (_points >= _pointsToWin)
             SceneController.Instance.LoadWin();
@@ -105,12 +81,7 @@ public class GameManager : MonoBehaviour
     private void UpdateTime()
     {
         _maxTime -= Time.deltaTime;
-        
-        if (_maxTime <= 30)
-            _timeText.color = Color.red;
-        
-        _timeText.text = "Time: " + Mathf.FloorToInt(_maxTime);
-
+        OnTimeUpdateEvent?.Invoke(_maxTime);
         if (_maxTime <= 0)
             SceneController.Instance.LoadLose();
     }

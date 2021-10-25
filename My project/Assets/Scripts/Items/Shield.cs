@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Shield : Item
 {
-    [SerializeField] private int _hits;
+    private int _hits;
     
     protected override void OnClick()
     {
@@ -12,5 +12,11 @@ public class Shield : Item
         {
             base.OnClick();
         }
+    }
+    
+    public override void SetItem(ItemSO data)
+    {
+        _hits = data.hits;
+        base.SetItem(data);
     }
 }

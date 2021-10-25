@@ -13,4 +13,11 @@ MonoBehaviour:
   m_Name: Coin Medium
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 1586263111177271419, guid: e427e7fb382936149aade568558a4eb5, type: 3}
+  itemName: Coin
+  points: 5
+  pointsToReduceOnDestroy: 1
+  aliveTime: 5
+  soundEffect: {fileID: 8300000, guid: 413c583b93f015441aabe3390dfb14ee, type: 3}
+  hits: 0
+  bonusCoins: 0
   weight: 20

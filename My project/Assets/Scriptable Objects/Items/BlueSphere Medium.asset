@@ -13,4 +13,11 @@ MonoBehaviour:
   m_Name: BlueSphere Medium
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 162812323572339012, guid: 9e3bbe37b80ced549b19a2667b0a511f, type: 3}
+  itemName: Blue Sphere
+  points: 2
+  pointsToReduceOnDestroy: 1
+  aliveTime: 5
+  soundEffect: {fileID: 0}
+  hits: 0
+  bonusCoins: 0
   weight: 20

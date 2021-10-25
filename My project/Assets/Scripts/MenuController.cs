@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MenuController : MonoBehaviour
 {
-    public void SetDifficulty(string difficulty)
+    public void SetDifficulty(DifficultySO difficulty)
     {
         DifficultySelector.Instance.SetDifficulty(difficulty);
 

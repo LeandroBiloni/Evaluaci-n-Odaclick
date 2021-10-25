@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class RouletteWheel
 {    
-    public Item Calculate(Dictionary<Item, int> actions)
+    public ItemSO Calculate(Dictionary<ItemSO, int> actions)
     {
         int totalWeight = 0;
 
-        foreach (KeyValuePair<Item, int> item in actions)
+        foreach (KeyValuePair<ItemSO, int> item in actions)
         {
             totalWeight += item.Value;
         }
 
         int random = Random.Range(0, totalWeight);
 
-        foreach (KeyValuePair<Item, int> item in actions)
+        foreach (KeyValuePair<ItemSO, int> item in actions)
         {
             random -= item.Value;
 

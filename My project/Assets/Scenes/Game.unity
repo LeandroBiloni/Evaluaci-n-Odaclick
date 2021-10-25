@@ -370,6 +370,7 @@ GameObject:
   m_Component:
   - component: {fileID: 692216879}
   - component: {fileID: 692216880}
+  - component: {fileID: 692216882}
   - component: {fileID: 692216881}
   m_Layer: 5
   m_Name: TimeText
@@ -494,6 +495,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &692216882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 692216878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6099845286ec2ad48a8873ebd7b14f53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timeText: {fileID: 692216881}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -757,13 +771,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxTime: 120
-  _timeText: {fileID: 692216881}
-  _pointsText: {fileID: 19191376}
-  _pointsProgressBar: {fileID: 2083506035}
   _pointsToWin: 100
-  _easyDifficultyData: {fileID: 11400000, guid: 2d4c80380a9c59644b5847b59364bcd3, type: 2}
-  _mediumDifficultyData: {fileID: 11400000, guid: 764e6f8b168468847bf2b850268fcf44, type: 2}
-  _hardDifficultyData: {fileID: 11400000, guid: 2cb2ef797d0c86e448341bc0cb26e333, type: 2}
+  _selectedDifficultyData: {fileID: 0}
 --- !u!4 &886773131
 Transform:
   m_ObjectHideFlags: 0
@@ -1109,6 +1118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2083506034}
   - component: {fileID: 2083506036}
+  - component: {fileID: 2083506037}
   - component: {fileID: 2083506035}
   m_Layer: 5
   m_Name: ProgressBar
@@ -1174,6 +1184,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2083506033}
   m_CullTransparentMesh: 1
+--- !u!114 &2083506037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083506033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbae205ca68d9d549941eb77f06d6d8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pointsProgressBar: {fileID: 2083506035}
+  _pointsText: {fileID: 19191376}
 --- !u!1 &2086608460
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,7 +16,7 @@ public class ItemSpawner : MonoBehaviour
 
     private RouletteWheel _roulette;
 
-    private Dictionary<Item, int> _itemChances = new Dictionary<Item, int>();
+    private Dictionary<ItemSO, int> _itemChances = new Dictionary<ItemSO, int>();
     private void Awake()
     {
         if (Instance != null)
@@ -34,7 +34,7 @@ public class ItemSpawner : MonoBehaviour
     
     public void SpawnItem()
     {
-        Item item = null;
+        ItemSO item = null;
 
         var minItem = GameManager.Instance.GetSelectedDifficultyData().minObjectsToSpawn;
         var maxItem = GameManager.Instance.GetSelectedDifficultyData().maxObjectsToSpawn;
@@ -58,7 +58,7 @@ public class ItemSpawner : MonoBehaviour
                     }
                     foreach (var pair in _itemChances)
                     {
-                        if (pair.Key.GetItemName() != "Coin") continue;
+                        if (pair.Key.itemName != "Coin") continue;
             
                         item = pair.Key;
                         break;
@@ -84,11 +84,15 @@ public class ItemSpawner : MonoBehaviour
     /// <summary>
     /// Spawns an item at a random screen position.
     /// </summary>
-    /// <param name="item">The item to spawn.</param>
-    private void Spawn(Item item)
+    /// <param name="itemData">The item to spawn.</param>
+    private void Spawn(ItemSO itemData)
     {
-        var i = Instantiate(item, _canvas);
-        
+        var item = Instantiate(itemData.itemPrefab, _canvas);
+        item.SetItem(itemData);
+        item.OnClickEvent += GameManager.Instance.UpdatePoints;
+
+        item.OnDeathEvent += GameManager.Instance.UpdatePoints;
+
         //Calculates position to spawn relative to screen resolution
         var res = Screen.currentResolution;
         float xPostiion = Random.Range(-(res.width / 2) + 100, (res.width / 2) - 100);
@@ -96,7 +100,7 @@ public class ItemSpawner : MonoBehaviour
         
         Vector3 randomPos = new Vector3(xPostiion, yPostiion, 0);
         
-        i.transform.localPosition = randomPos;
+        item.transform.localPosition = randomPos;
     }
 
     /// <summary>
@@ -112,10 +116,10 @@ public class ItemSpawner : MonoBehaviour
     /// <summary>
     /// Sets item spawn chances to ItemSpawner.
     /// </summary>
-    /// <param name="item"></param>
+    /// <param name="itemData"></param>
     /// <param name="weight">Higher weight in relation to other items gives more chance to spawn the item.</param>
-    public void AddSpawnChances(Item item, int weight)
+    public void AddSpawnChances(ItemSO itemData, int weight)
     {
-        _itemChances.Add(item, weight);
+        _itemChances.Add(itemData, weight);
     }
 }
