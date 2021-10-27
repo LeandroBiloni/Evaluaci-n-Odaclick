@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     public delegate void PointsUpdate(int currentPoints, int maxPoints);
 
     public event PointsUpdate OnPointsUpdateEvent;
+
+    private ItemSpawner _itemSpawner;
     private void Awake()
     {
         if (Instance != null)
@@ -31,10 +33,10 @@ public class GameManager : MonoBehaviour
     {
         _points = 0;
 
+        _itemSpawner = FindObjectOfType<ItemSpawner>();
+        
         DifficultySettings();
         
-        ItemSpawner.Instance.SpawnItem();
-
         StartCoroutine(SpawnTimer());
     }
 
@@ -52,7 +54,7 @@ public class GameManager : MonoBehaviour
         {
             foreach (var itemData in _selectedDifficultyData.itemList)
             {
-                ItemSpawner.Instance.AddSpawnChances(itemData, itemData.weight);
+                _itemSpawner.AddSpawnChances(itemData, itemData.weight);
             }
         }
     }
@@ -62,9 +64,9 @@ public class GameManager : MonoBehaviour
         var time = Random.Range(_selectedDifficultyData.minSpawnTime, _selectedDifficultyData.maxSpawnTime);
 
         yield return new WaitForSeconds(time);
-        
-        ItemSpawner.Instance.SpawnItem();
 
+        Spawn();
+        
         StartCoroutine(SpawnTimer());
     }
     
@@ -89,5 +91,31 @@ public class GameManager : MonoBehaviour
     public DifficultySO GetSelectedDifficultyData()
     {
         return _selectedDifficultyData;
+    }
+
+    void Spawn()
+    {
+        var minItem = _selectedDifficultyData.minObjectsToSpawn;
+        var maxItem = _selectedDifficultyData.maxObjectsToSpawn;
+
+        //Determines how many items will spawn.
+        var itemsQuantity = Random.Range(minItem, maxItem + 1);
+
+        var res = Screen.currentResolution;
+        
+        
+        for (int i = 0; i < itemsQuantity; i++)
+        {
+            var item = _itemSpawner.PickObjectFromPool();
+            
+            //Calculates position to spawn relative to screen resolution
+            float xPostiion = Random.Range(-(res.width / 2) + 100, (res.width / 2) - 100);
+            float yPostiion = Random.Range(-(res.height / 2) + 100, (res.height / 2) - 200);
+            Vector3 randomPos = new Vector3(xPostiion, yPostiion, 0);
+        
+            item.transform.localPosition = randomPos;
+            item.gameObject.SetActive(true);
+            item.StartTimer();
+        }
     }
 }

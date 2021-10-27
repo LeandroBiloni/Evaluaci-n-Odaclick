@@ -21,3 +21,4 @@ MonoBehaviour:
   hits: 0
   bonusCoins: 5
   weight: 15
+  itemForClickEffect: {fileID: 11400000, guid: 32691f50f90630d45af7b7a619e3377d, type: 2}

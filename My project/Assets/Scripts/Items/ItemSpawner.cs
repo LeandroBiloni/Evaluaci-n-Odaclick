@@ -1,11 +1,10 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class ItemSpawner : MonoBehaviour
 {
-    public static ItemSpawner Instance;
-    
     private Transform _canvas;
 
     private float _timeSinceLastSpawn;
@@ -17,25 +16,22 @@ public class ItemSpawner : MonoBehaviour
     private RouletteWheel _roulette;
 
     private Dictionary<ItemSO, int> _itemChances = new Dictionary<ItemSO, int>();
+
+    [SerializeField] private List<Item> _itemPool = new List<Item>();
+    
     private void Awake()
     {
-        if (Instance != null)
-            Destroy(gameObject);
-        else Instance = this;
         _canvas = FindObjectOfType<Canvas>().transform;
     }
 
     private void Start()
     {
-        
         _roulette = new RouletteWheel();
     }
-    
-    
-    public void SpawnItem()
-    {
-        ItemSO item = null;
 
+
+    private void SpawnItem()
+    {
         var minItem = GameManager.Instance.GetSelectedDifficultyData().minObjectsToSpawn;
         var maxItem = GameManager.Instance.GetSelectedDifficultyData().maxObjectsToSpawn;
         
@@ -44,40 +40,18 @@ public class ItemSpawner : MonoBehaviour
 
         for (int i = 0; i < itemsQuantity; i++)
         {
-            
-            //If target was clicked, only coins will spawn.
-            if (_spawnOnlyCoins)
+            if (_roulette == null)
             {
-                if (_spawnedCoinsCounter > 0)
-                {
-                    _spawnedCoinsCounter--;
+                _roulette = new RouletteWheel();
+            }
+            
+            //Determines which item will spawn.
+            var item = _roulette.Calculate(_itemChances);
 
-                    if (_spawnedCoinsCounter <= 0)
-                    {
-                        _spawnOnlyCoins = false;
-                    }
-                    foreach (var pair in _itemChances)
-                    {
-                        if (pair.Key.itemName != "Coin") continue;
-            
-                        item = pair.Key;
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                if (_roulette == null)
-                {
-                    _roulette = new RouletteWheel();
-                }
-                
-                //Determines which item will spawn.
-                item = _roulette.Calculate(_itemChances);
-            }
-        
             if (item)
-                Spawn(item); 
+            {
+                _itemPool.Add(Spawn(item));
+            }
         }
     }
 
@@ -85,32 +59,19 @@ public class ItemSpawner : MonoBehaviour
     /// Spawns an item at a random screen position.
     /// </summary>
     /// <param name="itemData">The item to spawn.</param>
-    private void Spawn(ItemSO itemData)
+    private Item Spawn(ItemSO itemData)
     {
         var item = Instantiate(itemData.itemPrefab, _canvas);
+        
         item.SetItem(itemData);
+
         item.OnClickEvent += GameManager.Instance.UpdatePoints;
 
         item.OnDeathEvent += GameManager.Instance.UpdatePoints;
 
-        //Calculates position to spawn relative to screen resolution
-        var res = Screen.currentResolution;
-        float xPostiion = Random.Range(-(res.width / 2) + 100, (res.width / 2) - 100);
-        float yPostiion = Random.Range(-(res.height / 2) + 100, (res.height / 2) - 200);
+        item.gameObject.SetActive(false);
         
-        Vector3 randomPos = new Vector3(xPostiion, yPostiion, 0);
-        
-        item.transform.localPosition = randomPos;
-    }
-
-    /// <summary>
-    /// Forces the spawn of coins for the next items.
-    /// </summary>
-    /// <param name="amount">The amount of coins that will spawn.</param>
-    public void ForceCoinSpawn(int amount)
-    {
-        _spawnOnlyCoins = true;
-        _spawnedCoinsCounter = amount;
+        return item;
     }
 
     /// <summary>
@@ -121,5 +82,40 @@ public class ItemSpawner : MonoBehaviour
     public void AddSpawnChances(ItemSO itemData, int weight)
     {
         _itemChances.Add(itemData, weight);
+    }
+    
+    /// <summary>
+    /// Gets the first item from the item pool.
+    /// </summary>
+    /// <returns></returns>
+    public Item PickObjectFromPool()
+    {
+        Item obj = null;
+
+        //If there is no items in the pool, new ones are created
+        if (_itemPool.Count <= 0)
+        {
+            SpawnItem();
+        }
+
+        obj = _itemPool[0];
+
+        _itemPool.RemoveAt(0);
+
+        return obj;
+    }
+
+    /// <summary>
+    /// Adds the given item to the pool of items.
+    /// </summary>
+    /// <param name="item">The item to add.</param>
+    /// <param name="quantity">The quantity to add.</param>
+    public void AddItemToPool(ItemSO item, int quantity = 1)
+    {
+        _itemPool.Clear();
+        for (int i = 0; i < quantity; i++)
+        {
+            _itemPool.Add(Spawn(item));
+        }
     }
 }

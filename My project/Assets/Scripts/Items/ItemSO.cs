@@ -16,4 +16,5 @@ public class ItemSO : ScriptableObject
 
     [Header("Used by Target")] public int bonusCoins;
     public int weight;
+    public ItemSO itemForClickEffect;
 }

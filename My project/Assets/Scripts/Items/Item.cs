@@ -20,9 +20,11 @@ public class Item : MonoBehaviour
     public delegate void ClickAction(int value);
 
     public delegate void DeathAction(int value);
+    
     public event ClickAction OnClickEvent;
-
+    
     public event DeathAction OnDeathEvent;
+
     private void OnMouseOver()
     {
         if (Input.GetMouseButtonDown(0))
@@ -40,6 +42,7 @@ public class Item : MonoBehaviour
         yield return new WaitForSeconds(_aliveTime);
 
         OnDeathEvent?.Invoke(-_pointsToReduceOnDestroy);
+
         Destroy(gameObject);
     }
 
@@ -50,7 +53,6 @@ public class Item : MonoBehaviour
         StopCoroutine(TimeOut());
 
         PlaySound();
-        
         Destroy(gameObject);
     }
 
@@ -71,6 +73,10 @@ public class Item : MonoBehaviour
         _pointsToReduceOnDestroy = data.pointsToReduceOnDestroy;
         _aliveTime = data.aliveTime;
         _soundEffect = data.soundEffect;
+    }
+    
+    public void StartTimer()
+    {
         StartCoroutine(TimeOut());
     }
 }
